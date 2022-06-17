@@ -3,9 +3,8 @@
 require_once dirname(__FILE__).'/../../../vendor/autoload.php';
 
 define('OMISE_PHP_LIB_VERSION', '2.14.0-alpha');
-define('OMISE_API_URL', 'https://api.staging-omise.co/');
-// define('OMISE_API_URL', 'https://api-core-1140.dev-omise.co');
-define('OMISE_VAULT_URL', 'https://vault.staging-omise.co/');
+define('OMISE_API_URL', 'https://api.omise.co/');
+define('OMISE_VAULT_URL', 'https://vault.omise.co/');
 
 class OmiseApiResource extends OmiseObject
 {
