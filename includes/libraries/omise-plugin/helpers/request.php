@@ -11,10 +11,14 @@ if (! class_exists('RequestHelper')) {
          */
         public static function isUserOriginated()
         {
+            if('ANDOIRD' === Omise_Util::get_platform_type( wc_get_user_agent() )) {
+                return false;
+            }
+
             $fetchSite = sanitize_text_field($_SERVER['HTTP_SEC_FETCH_SITE']);
 
             // "none" means the request is a user-originated operation
             return 'none' === $fetchSite;
-        }   
+        }
     }
 }
