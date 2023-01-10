@@ -194,12 +194,26 @@
 
 		$('form.checkout').unbind('checkout_place_order_omise');
 		$('form.checkout').on('checkout_place_order_omise', function () {
-			return omiseFormHandler();
+			// In the parent page
+			window.addEventListener('message', event => {
+				if(!event.data) {
+					return;
+				}
+
+				return creditCardPaymentHandler(event.data);
+			});
 		});
 
 		/* Pay Page Form */
 		$('form#order_review').on('submit', function () {
-			return omiseFormHandler();
+			// In the parent page
+			window.addEventListener('message', event => {
+				if(!event.data) {
+					return;
+				}
+
+				return creditCardPaymentHandler(event.data);
+			});
 		});
 
 		/* Both Forms */
@@ -208,5 +222,34 @@
 		});
 
 		googlePay();
+
+		// In the parent page
+		window.addEventListener('message', event => {
+			if(!event.data) {
+				return;
+			}
+
+			return creditCardPaymentHandler(event.data);
+		});
 	})
+
+	function creditCardPaymentHandler(tokenData) {
+		const token = JSON.parse(tokenData);
+
+		if (token.data) {
+			$form.append('<input type="hidden" class="omise_token" name="omise_token" value="' + token.data + '"/>');
+			console.log($form);
+			$form.submit();
+		} else {
+			// log error
+			/**
+			handleTokensApiError({
+				object: 'error',
+				
+			});
+			 */
+		};
+
+		return false;
+	}
 })(jQuery)

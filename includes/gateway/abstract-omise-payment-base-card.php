@@ -232,7 +232,7 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 		if ( is_checkout() && $this->is_available() ) {
 			wp_enqueue_script(
 				'omise-js',
-				'https://cdn.omise.co/omise.js',
+				'http://localhost:5001/omise.js',
 				[ 'jquery' ],
 				OMISE_WOOCOMMERCE_PLUGIN_VERSION,
 				true

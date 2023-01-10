@@ -20,19 +20,21 @@
 
 document.querySelectorAll("input[name='card_id']").forEach((input) => {
     input.addEventListener('change', (e) => {
-		if(e.target.value) {
-			document.getElementById('place_order').style.display = 'block';
+		let display = 'block';
+
+		if(!e.target.value) {
+			showOmiseJs();
+			display = 'none';
 		}
-		else {
-			showOmiseJs()
-			document.getElementById('place_order').style.display = 'none';
-		}
+
+		document.getElementById('place_order').style.display = display;
 	});
 });
 
 document.querySelectorAll("input[name='payment_method']").forEach((input) => {
     input.addEventListener('change', () => {
-		document.getElementById('place_order').style.display = 'block';
+		showOmiseJs()
+		document.getElementById('place_order').style.display = 'none';
 	});
 });
 
@@ -40,7 +42,7 @@ function showOmiseJs() {
 	OmiseCard.configure({
 		element: document.getElementById('omise'),
 		embedded: true,
-		publicKey: "<?php echo '' ?>"
+		publicKey: "pkey_5t7f2zoyuaqxdbuupnf"
 	});
 
 	OmiseCard.open({
