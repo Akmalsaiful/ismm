@@ -237,6 +237,8 @@
 		const token = JSON.parse(tokenData);
 
 		if (token.data) {
+			const rememberCard = document.getElementById('omise_save_customer_card');
+			$form.append('<input type="hidden" name="omise_save_customer_card" id="omise_save_customer_card" value="' + rememberCard + '" />');
 			$form.append('<input type="hidden" class="omise_token" name="omise_token" value="' + token.data + '"/>');
 			console.log($form);
 			$form.submit();
