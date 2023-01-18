@@ -1,10 +1,16 @@
 <?php
 defined( 'ABSPATH' ) or die( 'No direct script access allowed.' );
 
-if ( ! class_exists( 'Omise_MyAccount' ) ) {
-	class Omise_MyAccount {
+if ( ! class_exists( 'Omise_MyAccount' ) )
+{
+	class Omise_MyAccount
+	{
+		use OmiseCspHeaderTrait;
+
 		private static $instance;
 		private $omise_customer_id;
+		// const OMISE_JS_URL = 'https://cdn.staging-omise.co/omise.js';
+		const OMISE_JS_URL = 'http://localhost:5001/omise.js';
 
 		public static function get_instance() {
 			if ( ! self::$instance) {
@@ -56,7 +62,7 @@ if ( ! class_exists( 'Omise_MyAccount' ) ) {
 		public function register_omise_my_account_scripts() {
 			wp_enqueue_script(
 				'omise-js',
-				'https://cdn.omise.co/omise.js',
+				self::OMISE_JS_URL,
 				array( 'jquery' ),
 				WC_VERSION,
 				true
@@ -75,6 +81,8 @@ if ( ! class_exists( 'Omise_MyAccount' ) ) {
 				'omise_params',
 				$this->getParamsForJS()
 			);
+
+			// $this->add_csp_header(self::OMISE_JS_URL);
 		}
 
 		/**

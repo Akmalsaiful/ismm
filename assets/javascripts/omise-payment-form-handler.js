@@ -104,7 +104,8 @@
 		$('form.checkout').on('checkout_place_order_omise', function () {
 			// In the parent page
 			window.addEventListener('message', event => {
-				if(!event.data) {
+				console.log(event.origin);
+				if(event.origin !== "http://localhost:5001" && !event.data) {
 					return;
 				}
 
@@ -116,7 +117,7 @@
 		$('form#order_review').on('submit', function () {
 			// In the parent page
 			window.addEventListener('message', event => {
-				if(!event.data) {
+				if(event.origin !== "http://localhost:5001" && !event.data) {
 					return;
 				}
 
@@ -133,7 +134,8 @@
 
 		// In the parent page
 		window.addEventListener('message', event => {
-			if(!event.data) {
+			console.log(event);
+			if(event.origin !== "http://localhost:5001" && !event.data) {
 				return;
 			}
 

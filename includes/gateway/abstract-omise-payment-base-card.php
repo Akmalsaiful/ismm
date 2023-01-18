@@ -2,14 +2,20 @@
 defined( 'ABSPATH' ) or die( 'No direct script access allowed.' );
 
 require_once dirname( __FILE__ ) . '/class-omise-payment.php';
+require_once dirname( __FILE__ ) . '/trait-omise-csp-header.php';
 
 /**
  * @since 4.22.0
  */
 abstract class Omise_Payment_Base_Card extends Omise_Payment
 {
+	use OmiseCspHeaderTrait;
+
 	const PAYMENT_ACTION_AUTHORIZE         = 'manual_capture';
 	const PAYMENT_ACTION_AUTHORIZE_CAPTURE = 'auto_capture';
+	// const OMISE_JS_URL = 'https://cdn.staging-omise.co/omise.js';
+	const OMISE_JS_URL = 'http://localhost:5001/omise.js';
+	const OMISE_JS_HOST = 'http://localhost:5001';
 
     /**
 	 * @inheritdoc
@@ -232,10 +238,11 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 		if ( is_checkout() && $this->is_available() ) {
 			wp_enqueue_script(
 				'omise-js',
-				'https://cdn.omise.co/omise.js',
+				self::OMISE_JS_URL,
 				[ 'jquery' ],
 				OMISE_WOOCOMMERCE_PLUGIN_VERSION,
-				true
+				true,
+				['nonce' => wp_create_nonce( 'omise-iframe-nonce' )]
 			);
 
 			wp_enqueue_script(
@@ -251,6 +258,8 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 				'omise_params',
 				$this->getParamsForJS()
 			);
+
+			$this->add_csp_header(self::OMISE_JS_URL);
 		}
 	}
 
