@@ -103,26 +103,26 @@
 		$('form.checkout').unbind('checkout_place_order_omise');
 		$('form.checkout').on('checkout_place_order_omise', function () {
 			// In the parent page
-			window.addEventListener('message', event => {
-				console.log(event.origin);
-				if(event.origin !== "http://localhost:5001" && !event.data) {
-					return;
-				}
+			// window.addEventListener('message', event => {
+			// 	console.log(event.origin);
+			// 	if(event.origin !== "http://localhost:5001" && !event.data) {
+			// 		return;
+			// 	}
 
-				return creditCardPaymentHandler(event.data);
-			});
+			// 	return creditCardPaymentHandler(event.data);
+			// });
 		});
 
 		/* Pay Page Form */
 		$('form#order_review').on('submit', function () {
 			// In the parent page
-			window.addEventListener('message', event => {
-				if(event.origin !== "http://localhost:5001" && !event.data) {
-					return;
-				}
+			// window.addEventListener('message', event => {
+			// 	if(event.origin !== "http://localhost:5001" && !event.data) {
+			// 		return;
+			// 	}
 
-				return creditCardPaymentHandler(event.data);
-			});
+			// 	return creditCardPaymentHandler(event.data);
+			// });
 		});
 
 		/* Both Forms */
@@ -133,35 +133,35 @@
 		googlePay();
 
 		// In the parent page
-		window.addEventListener('message', event => {
-			console.log(event);
-			if(event.origin !== "http://localhost:5001" && !event.data) {
-				return;
-			}
+		// window.addEventListener('message', event => {
+		// 	console.log(event);
+		// 	if(event.origin !== "http://localhost:5001" && !event.data) {
+		// 		return;
+		// 	}
 
-			return creditCardPaymentHandler(event.data);
-		});
+		// 	return creditCardPaymentHandler(event.data);
+		// });
 	})
 
-	function creditCardPaymentHandler(tokenData) {
-		const token = JSON.parse(tokenData);
+	// function creditCardPaymentHandler(tokenData) {
+	// 	const token = JSON.parse(tokenData);
 
-		if (token.data) {
-			const rememberCard = document.getElementById('omise_save_customer_card');
-			$form.append('<input type="hidden" name="omise_save_customer_card" id="omise_save_customer_card" value="' + rememberCard + '" />');
-			$form.append('<input type="hidden" class="omise_token" name="omise_token" value="' + token.data + '"/>');
-			console.log($form);
-			$form.submit();
-		} else {
-			// log error
-			/**
-			handleTokensApiError({
-				object: 'error',
+	// 	if (token.data) {
+	// 		const rememberCard = document.getElementById('omise_save_customer_card');
+	// 		$form.append('<input type="hidden" name="omise_save_customer_card" id="omise_save_customer_card" value="' + rememberCard + '" />');
+	// 		$form.append('<input type="hidden" class="omise_token" name="omise_token" value="' + token.data + '"/>');
+	// 		console.log($form);
+	// 		$form.submit();
+	// 	} else {
+	// 		// log error
+	// 		/**
+	// 		handleTokensApiError({
+	// 			object: 'error',
 				
-			});
-			 */
-		};
+	// 		});
+	// 		 */
+	// 	};
 
-		return false;
-	}
+	// 	return false;
+	// }
 })(jQuery)

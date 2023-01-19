@@ -116,9 +116,8 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 			}
 
 			try {
-				$customer->get($omise_customer_id);
 				$customerCard = new OmiseCustomerCard;
-				$card = $customerCard->create($customer, $token);
+				$card = $customerCard->create($omise_customer_id, $token);
 
 				return [
 					'customer_id' => $omise_customer_id,
