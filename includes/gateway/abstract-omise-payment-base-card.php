@@ -15,7 +15,6 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 	const PAYMENT_ACTION_AUTHORIZE_CAPTURE = 'auto_capture';
 	// const OMISE_JS_URL = 'https://cdn.staging-omise.co/omise.js';
 	const OMISE_JS_URL = 'http://localhost:5001/omise.js';
-	const OMISE_JS_HOST = 'http://localhost:5001';
 
     /**
 	 * @inheritdoc
@@ -240,8 +239,7 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 				self::OMISE_JS_URL,
 				[ 'jquery' ],
 				OMISE_WOOCOMMERCE_PLUGIN_VERSION,
-				true,
-				['nonce' => wp_create_nonce( 'omise-iframe-nonce' )]
+				true
 			);
 
 			wp_enqueue_script(
@@ -258,7 +256,7 @@ abstract class Omise_Payment_Base_Card extends Omise_Payment
 				$this->getParamsForJS()
 			);
 
-			$this->add_csp_header(self::OMISE_JS_URL);
+			$this->add_csp_header();
 		}
 	}
 
